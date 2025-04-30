@@ -12,20 +12,22 @@ PRIZM prizm;
 //Motor 2 = Up and Down (Mech)
 */
 
-double WHEEL_RADIUS = 2.8
+double WHEEL_RADIUS = 2;
+int TICKS_PER_ROTATION = 1440;
+double ROTATIONS_PER_INCH = 6.75;
 
 
 void distance(double distance){
-  return distance / (2 * WHEEL_RADIUS * 3.14159);
+  return ((TICKS_PER_ROTATION * distance) / (60 * 2 * WHEEL_RADIUS * M_PI));
 }
 
-class Center
-
-prizm.setMotorTarget(100, prizm.readEncoderDegrees(1) + distance());
+void height(double distance){
+  return ((TICKS_PER_ROTATION * distance * ROTATIONS_PER_INCH) / (60 * 2));
+}
 
 void setup() {
-  // put your setup code here, to run once:
-
+  prizm.PrizmBegin();
+  prizm.setMotorTarget(100, prizm.readEncoderDegrees(1) + distance(10));
 }
 
 void loop() {
