@@ -1,0 +1,434 @@
+#include <PRIZM.h>
+#include <math.h>
+PRIZM prizm;
+//
+//
+/*
+//Servo 1 = Intake(CH1-Mech)
+//Servo 2 = Pivot(CH2-Mech)
+//CR 1 = H-Drive(CH1-Drive)
+//CR 2 =  Arm(CH4-Mech)
+//Motor 1 = Drive Left and Right (Drive)
+//Motor 2 = Up and Down (Mech)
+*/
+//
+//
+double WHEEL_RADIUS = 2;
+int TICKS_PER_ROTATION = 1440;
+double ROTATIONS_PER_INCH = 6.75;
+//
+//
+double distance(double distance){
+  return ((TICKS_PER_ROTATION * distance) / (60 * 2 * WHEEL_RADIUS * M_PI));
+}
+//
+//
+double height(double distance){
+  return ((TICKS_PER_ROTATION * distance * ROTATIONS_PER_INCH) / (60 * 2));
+}
+//
+//
+void setup() {
+  prizm.PrizmBegin();
+  prizm.setCRServoState(2, -100);
+}
+//
+//
+void extension_up() {
+  prizm.setMotorPower(2, -100);
+  delay(500);
+  prizm.setMotorPower(2, 125);
+}
+//
+//
+void arm_up() {
+  prizm.setServoPosition(2, 0);
+  delay(5000);
+  //prizm.setCRServoState(1,  100);
+}
+//
+//
+void Intake_Up() {
+  prizm.setCRServoState(2, -100);
+  delay(2000);
+  //prizm.setCRServoState(1,  100);
+}
+//
+//
+void Up_Side_Tall() {
+  prizm.setMotorPower(2, -100);
+  delay(1900);
+  prizm.setMotorPower(2, 125);
+}
+//
+//
+void Down_Side_Tall() {
+  prizm.setMotorPower(2, 100);
+  delay(1900);
+  prizm.setMotorPower(2, 125);
+}
+//
+//
+void arm_Down() {
+  prizm.setServoPosition(2, 180);
+  delay(200);
+  prizm.setCRServoState(2, -100);
+  delay(1000);
+}
+//
+//
+void extension_Down() {
+  prizm.setMotorPower(2, 100);
+  delay(500);
+  prizm.setMotorPower(2, 125);
+}
+//
+//
+void extension_Down_Begin() {
+  prizm.setMotorPower(2, 100);
+  delay(1000);
+  prizm.setMotorPower(2, 125);
+}
+//
+//
+void drive_Foward() {
+  prizm.setMotorTarget(1, 100, distance(10));
+  delay(1750);
+  prizm.setMotorTarget(1, 0, distance(-1));
+  //prizm.setMotorPower(1, 50);
+ // delay(3000);
+  //prizm.setMotorPower(1, 125);
+  //delay(1000);
+}
+void drive_Foward2Sec() {
+  prizm.setMotorTarget(1, 100, distance(10));
+  delay(1750);
+  prizm.setMotorTarget(1, 0, distance(-1));
+  //prizm.setMotorPower(1, 50);
+ // delay(3000);
+  //prizm.setMotorPower(1, 125);
+  //delay(1000);
+}
+void drive_Foward3Sec() {
+  prizm.setMotorTarget(1, 100, distance(10));
+  delay(2000);
+  prizm.setMotorTarget(1, 0, distance(-1));
+  //prizm.setMotorPower(1, 50);
+ // delay(3000);
+  //prizm.setMotorPower(1, 125);
+  //delay(1000);
+}
+//
+//
+void drive_Foward_5th_Sec() {
+  prizm.setMotorPower(1, 50);
+  delay(1000);
+  prizm.setMotorPower(1, 125);
+  delay(1000);
+}
+//
+//
+void drive_Back() {
+  prizm.setMotorPower(1, -100);
+  delay(500);
+  prizm.setMotorPower(1, 125);
+  delay(1000);
+}
+//
+//
+void drive_Back_1_sec() {
+  //prizm.setMotorTarget(1, 100, distance(-1));
+  //delay(500);
+  //prizm.setMotorTarget(1, 125, distance(-1));
+  prizm.setMotorPower(1, -75);
+  delay(300);
+  prizm.setMotorPower(1, 125);
+  delay(1000);
+}
+void drive_Back_2_sec() {
+  //prizm.setMotorTarget(1, 100, distance(-1));
+  //delay(500);
+  //prizm.setMotorTarget(1, 125, distance(-1));
+  prizm.setMotorPower(1, -75);
+  delay(1500);
+  prizm.setMotorPower(1, 125);
+  delay(1000);
+}
+//
+//
+void Slide_2_Sec_Left() {
+  prizm.setCRServoState(1, -100);
+  delay(2000);
+  prizm.setCRServoState(1, 0);
+}
+//
+//
+void Side_Park() {
+  prizm.setCRServoState(1, -100);
+  delay(8000);
+  prizm.setCRServoState(1, 0);
+}
+//
+//
+void Slide_2_Sec_Right() {
+  prizm.setCRServoState(1, 100);
+  delay(2000);
+  prizm.setCRServoState(1, 0);
+}
+//
+//
+void Drive_Foward_Half_Sec() {
+  prizm.setMotorPower(1, 50);
+  delay(500);
+  prizm.setMotorPower(1, 125);
+  delay(1000);
+}
+//
+//
+void Drive_Back_Half_Sec() {
+  prizm.setMotorPower(1, -50);
+  delay(500);
+  prizm.setMotorPower(1, 125);
+  delay(1000);
+}
+//
+//
+void Drive_Intake_Forward() {
+  prizm.setMotorPower(1, 50);
+  delay(500);
+  prizm.setMotorPower(1, 125);
+  delay(1000);
+}
+//
+//
+void Drive_Intake_Backward() {
+  prizm.setMotorPower(1, -50);
+  delay(500);
+  prizm.setMotorPower(1, 125);
+  delay(1000);
+}
+//
+//
+void Outake() {
+  prizm.setCRServoState(2, 100);
+  delay(1500);
+  prizm.setServoPosition(1, 180);
+  delay(1000);
+}
+//
+//
+void Outake_Side() {
+  prizm.setCRServoState(2, 100);
+  prizm.setServoPosition(1, 180);
+  delay(2000);
+  prizm.setCRServoState(2, -100);
+}
+//
+//
+void Intake() {
+  prizm.setCRServoState(2, 0);
+  prizm.setServoPosition(1, 0);
+  delay(1000);
+  Drive_Intake_Forward();
+  delay(1000);
+  Drive_Intake_Backward();
+  delay(1000);
+  prizm.setCRServoState(2, -100);
+}
+//
+//
+void Intake_Up_Begin() {
+  prizm.setMotorPower(2, -100);
+  delay(250);
+  prizm.setMotorPower(2, 125);
+  prizm.setMotorPower(2, 100);
+  delay(250);
+  prizm.setMotorPower(2, 125);
+  delay(100);
+  prizm.setCRServoState(2, -100);
+  delay(100);
+
+}
+//
+//
+//
+void Middle_Auto() {
+  Intake_Up_Begin();
+  delay(1000);
+  extension_Down_Begin();
+  delay(100);
+  extension_up();
+  delay(100);
+  arm_up();
+  delay(100);
+  drive_Foward();
+  delay(100);
+  Outake();
+  delay(2000);
+  drive_Back_2_sec();
+  delay(100);
+  arm_Down();
+  delay(1000);
+  extension_Down();
+  delay(100);
+  prizm.PrizmEnd();
+}
+//
+//
+//
+void Side_3_Top() {
+  Intake_Up_Begin();
+  delay(1000);
+  extension_Down_Begin();
+  delay(100);
+  extension_up();  //1 Peice
+  delay(100);
+  drive_Foward_5th_Sec();
+  delay(100);
+  Slide_2_Sec_Left();
+  delay(100);
+  Up_Side_Tall();
+  delay(100);
+  Drive_Foward_Half_Sec();
+  delay(100);
+  Outake_Side();
+  delay(100);
+  Drive_Back_Half_Sec();
+  delay(100);
+  Down_Side_Tall();
+  delay(100);
+  Slide_2_Sec_Right();
+  delay(100);
+  // arm_Down();
+  delay(100);
+  extension_Down();
+  delay(100);
+  Intake();
+  delay(100);
+  extension_up();  //2 Peice
+  delay(100);
+  Slide_2_Sec_Left();
+  delay(100);
+  Up_Side_Tall();
+  delay(100);
+  Drive_Foward_Half_Sec();
+  delay(100);
+  Outake_Side();
+  delay(100);
+  Drive_Back_Half_Sec();
+  delay(100);
+  Down_Side_Tall();
+  delay(100);
+  Slide_2_Sec_Right();
+  delay(100);
+  // arm_Down();
+  delay(100);
+  extension_Down();
+  delay(100);
+  Intake();
+  delay(100);
+  extension_up();  //3 Peice
+  delay(100);
+  Slide_2_Sec_Left();
+  delay(100);
+  Up_Side_Tall();
+  delay(100);
+  Drive_Foward_Half_Sec();
+  delay(100);
+  Outake_Side();
+  delay(100);
+  Drive_Back_Half_Sec();
+  delay(100);
+  Down_Side_Tall();
+  delay(100);
+  Slide_2_Sec_Right();
+  delay(100);
+  // arm_Down();
+  delay(100); 
+  extension_Down();
+  prizm.PrizmEnd();
+}
+//
+//
+//
+void Side_Auto_Top_Left() {
+  Intake_Up_Begin();
+  delay(1000);
+  extension_Down_Begin();
+  delay(100);
+  extension_up();  //1 Peice
+  delay(1000);
+  Up_Side_Tall();
+  delay(100);
+  drive_Foward2Sec();
+  delay(1000);
+  Outake();
+  delay(1000);
+  drive_Back_1_sec();
+  delay(100);
+  Intake_Up();
+  delay(1000);
+  Down_Side_Tall();
+  delay(1000);
+  extension_Down();
+  delay(100);
+  prizm.PrizmEnd();
+}
+//
+void Side_Auto_Top_Right() {
+  Intake_Up_Begin();
+  delay(1000);
+  extension_Down_Begin();
+  delay(100);
+  extension_up();  //1 Peice
+  delay(1000);
+  Up_Side_Tall();
+  delay(100);
+  drive_Foward3Sec();
+  delay(1000);
+  Outake();
+  delay(1000);
+  drive_Back_1_sec();
+  delay(100);
+  Intake_Up();
+  delay(1000);
+  Down_Side_Tall();
+  delay(1000);
+  extension_Down();
+  delay(100);
+  prizm.PrizmEnd();
+}
+//
+//
+//
+void Park_Climb() {
+  Intake_Up_Begin();
+  delay(1000);
+  extension_Down_Begin();
+  delay(100);
+  extension_up();  //1 Peice
+  delay(100);
+  //Up_Side_Tall();   //Comment out to just park
+  delay(100);
+  drive_Back_2_sec();
+  delay(100);
+  //Down_Side_Tall(); //Comment out to just park
+  delay(1000);
+  //extension_Down();
+  delay(100);
+  prizm.PrizmEnd();
+}
+//
+//
+//
+void loop() {
+  // Uncomment to select Auto
+  //
+  //Middle_Auto();  //Very Good and Repeatable
+  //
+  Side_Auto_Top_Left();      //Setup is wierd
+  //
+  //Side_Auto_Top_Right();
+  //
+  //Park_Climb();           //If all else Fails
+}
